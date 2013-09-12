@@ -1,4 +1,4 @@
-B77;10103;0c#!/bin/bash
+#!/bin/bash
 # Simple setup.sh for configuring Ubuntu 12.04 LTS EC2 instance
 # for headless setup. 
 
@@ -19,16 +19,16 @@ sudo npm install -g jshint
 
 # Install rlwrap to provide libreadline features with node
 # See: http://nodejs.org/api/repl.html#repl_repl
-#sudo apt-get install -y rlwrap
+sudo apt-get install -y rlwrap
 
 # Install emacs24
 # https://launchpad.net/~cassou/+archive/emacs
-#sudo add-apt-repository -y ppa:cassou/emacs
-#sudo apt-get -qq update
-#sudo apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
+sudo add-apt-repository -y ppa:cassou/emacs
+sudo apt-get -qq update
+sudo apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
 
 #Install tmux
-#sudo apt-get install -y tmux
+sudo apt-get install -y tmux
 
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
@@ -51,10 +51,11 @@ fi
 if [ -d .tmux/ ]; then
     mv .tmux .tmux~
 fi
+if [ -d .vagrant.d/ ]; then
+    mv .vagrant.d .vagrant.d~
+fi
 
-#Copy setup dotfiles into home directory
-cp -r setup-cygwin/dotfiles .
-
+git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.gitmessage.txt .

@@ -12,9 +12,7 @@ fi
 if [ -d .tmux/ ]; then
     mv .tmux .tmux~
 fi
-
-cp -r setup-cygwin/dotfiles .
-
+git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.gitmessage.txt .
