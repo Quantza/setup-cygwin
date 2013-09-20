@@ -1,15 +1,22 @@
-#tmux
+#! /bin/bash
+function parse_git_dirty {
+	git diff --no-ext-diff --quiet --exit-code &> /dev/null || echo "*"
+}
 
-#SSHAGENT=/usr/bin/ssh-agent
-#SSHAGENTARGS="-s"
-#if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
-#  eval `$SSHAGENT $SSHAGENTARGS`
-#  trap "kill $SSH_AGENT_PID" 0
-#fi
+function parse_git_branch {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
+}
 
-#ssh-add ~/.ssh/id_rsa_g
+export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$(parse_git_branch)\$ "
+export CLICOLOR=1
 
-#! /bin/bash 
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+chmod u+x ~/.emacs.d/node_emacs
+
 eval `ssh-agent -s` 
 ssh-add $HOME/.ssh/id_rsa_g
 ssh-add $HOME/.ssh/private1.key
