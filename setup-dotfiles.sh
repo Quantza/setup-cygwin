@@ -32,6 +32,6 @@ ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
 
-ln -sb setup-cygwin/start-agent.sh .
+touch start-agent-trigger
 
 chmod -R 0700 ~/dotfiles/.tools/
