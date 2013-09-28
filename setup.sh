@@ -10,8 +10,8 @@ curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 
 # Load nvm and install latest production node
 source $HOME/.nvm/nvm.sh
-nvm install v0.10.12
-nvm use v0.10.12
+nvm install v0.10.18
+nvm use v0.10.18
 
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
@@ -62,6 +62,7 @@ ln -sb dotfiles/.gitmessage.txt .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
+ln -sb dotfiles/tools.sh .
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
 
