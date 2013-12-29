@@ -58,6 +58,9 @@ if [ -d .tools/ ]; then
     mv .tools .tools.old
 fi
 
+git config --global user.name "Quantza"
+git config --global user.email "post2base@outlook.com"
+
 git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.tmux.conf .
@@ -65,7 +68,7 @@ ln -sb dotfiles/.gitmessage.txt .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
-ln -sb dotfiles/.tools.sh .
+ln -sb dotfiles/tools.sh .
 ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
