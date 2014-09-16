@@ -19,6 +19,10 @@ if [ -d .tools/ ]; then
     mv .tools .tools.old
 fi
 
+if [ -d .ssh/ ]; then
+    mv .ssh .ssh.old
+fi
+
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
 
@@ -34,7 +38,12 @@ ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
+cp -R dotfiles/.ssh .
+
 
 touch start-agent-trigger
 
+chgrp -Rv Users ~/.ssh/*
+chmod -vR 600 ~/.ssh/config
+chmod -vR 644 ~/.ssh/*.pub
 chmod -R 0700 ~/dotfiles/.tools/
