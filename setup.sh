@@ -100,6 +100,6 @@ touch start-agent-trigger
 
 chgrp -Rv Users ~/.ssh/*
 chmod -vR 600 ~/.ssh/config
-chmod -vR 644 ~/.ssh/*.pub
+#chmod -vR 644 ~/.ssh/*.pub
 chmod -R 0700 ~/dotfiles/.tools/
 
