@@ -2,10 +2,14 @@
 # Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
 # for headless setup. 
 
+#Install apt-cyg
+lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+install apt-cyg /bin
+
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
-sudo apt-get install -y git
-sudo apt-get install -y curl
+
+apt-cyg install curl
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
 
 # Load nvm and install latest production node
@@ -20,10 +24,6 @@ nvm alias default 0.12
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
 npm install -g jshint
-
-#Install apt-cyg
-lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-install apt-cyg /bin
 
 #Install git
 apt-cyg install git
