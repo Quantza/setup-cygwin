@@ -1,38 +1,46 @@
 #!/bin/bash
-# Simple setup.sh for configuring Ubuntu 14.04 LTS EC2 instance
+# Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
 # for headless setup. 
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
 sudo apt-get install -y git
 sudo apt-get install -y curl
-curl https://raw.githubusercontent.com/creationix/nvm/v0.13.0/install.sh | sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
 
 # Load nvm and install latest production node
+# https://nodejs.org/
 source $HOME/.nvm/nvm.sh
-nvm install v0.10
-nvm use v0.10
+nvm install v0.12
+nvm use v0.12
 
 #Set node version for new shells
-nvm alias default 0.10
+nvm alias default 0.12
 
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
-sudo npm install -g jshint
+npm install -g jshint
+
+#Install apt-cyg
+lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+install apt-cyg /bin
+
+#Install git
+apt-cyg install git
+apt-cyg install git-completion 
+apt-cyg install git-gui 
+apt-cyg install git-svn
+apt-cyg install gitk
 
 # Install rlwrap to provide libreadline features with node
 # See: http://nodejs.org/api/repl.html#repl_repl
-sudo apt-get install -y rlwrap
+apt-cyg install rlwrap
 
-# Install emacs24
-# https://launchpad.net/~cassou/+archive/emacs
-#sudo add-apt-repository -y ppa:cassou/emacs
-#sudo apt-get -qq update
-#sudo apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
-sudo apt-get install -y emacs24
+# Install emacs
+apt-cyg install emacs
 
 #Install tmux
-sudo apt-get install -y tmux
+apt-cyg install tmux
 
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
@@ -74,12 +82,13 @@ if [ -d .tools/ ]; then
     mv .tools .tools.old
 fi
 
-if [ -d .ssh/ ]; then
-    mv .ssh .ssh.old
-fi
-
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
+
+echo "alias qhome='/cygdrive/c/Users/Quantza'" >> dotfiles/.bashrc_custom
+echo "alias bhome='/cygdrive/c/Users/TheBoss'" >> dotfiles/.bashrc_custom
+echo "alias apt-cyg-main='apt-cyg -m http://mirrors.kernel.org/sourceware/cygwin'" >> dotfiles/.bashrc_custom
+echo "alias apt-cyg-port='apt-cyg -m ftp://ftp.cygwinports.org/pub/cygwinports'" >> dotfiles/.bashrc_custom
 
 git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
@@ -93,13 +102,20 @@ ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
-cp -R dotfiles/.ssh .
-
 
 touch start-agent-trigger
 
-chgrp -Rv Users ~/.ssh/*
+if [ -d .ssh/ ]
+then
+    cp -R .ssh .ssh.old
+    chgrp -Rv Users ~/.ssh/*
+    cp dotfiles/.ssh/config ~/.ssh
+else
+    cp -R dotfiles/.ssh .
+    chgrp -Rv Users ~/.ssh/*
+    #chmod -vR 644 ~/.ssh/*.pub
+fi
+
 chmod -vR 600 ~/.ssh/config
-#chmod -vR 644 ~/.ssh/*.pub
 chmod -R 0700 ~/dotfiles/.tools/
 

@@ -38,12 +38,19 @@ ln -sf dotfiles/.emacs.d .
 ln -sf dotfiles/.tmux .
 ln -sf dotfiles/.tools .
 ln -sf dotfiles/.vagrant.d .
-cp -R dotfiles/.ssh .
-
 
 touch start-agent-trigger
 
-chgrp -Rv Users ~/.ssh/*
+if [ -d .ssh/ ]
+then
+    cp -R .ssh .ssh.old
+    chgrp -Rv Users ~/.ssh/*
+    cp dotfiles/.ssh/config ~/.ssh
+else
+    cp -R dotfiles/.ssh .
+    chgrp -Rv Users ~/.ssh/*
+    #chmod -vR 644 ~/.ssh/*.pub
+fi
+
 chmod -vR 600 ~/.ssh/config
-#chmod -vR 644 ~/.ssh/*.pub
 chmod -R 0700 ~/dotfiles/.tools/
