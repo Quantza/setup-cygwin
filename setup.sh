@@ -10,6 +10,7 @@ install apt-cyg /bin
 # https://github.com/creationix/nvm
 
 apt-cyg install curl
+apt-cyg install wget
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | sh
 
 # Load nvm and install latest production node
@@ -25,12 +26,63 @@ nvm alias default 0.12
 # http://jshint.com/
 npm install -g jshint
 
-#Install git
+# Install git
 apt-cyg install git
 apt-cyg install git-completion 
 apt-cyg install git-gui 
 apt-cyg install git-svn
 apt-cyg install gitk
+
+# Install tex-live prequisites
+apt-cyg install perl
+apt-cyg install fontconfig
+apt-cyg install ghostscript
+apt-cyg install libXaw7
+apt-cyg install ncurses
+
+# Remove old files
+CURRENT_TEX_LIVE_VERSION="2015"
+TEX_INSTALL_DIR="/usr/local/texlive/""$CURRENT_TEX_LIVE_VERSION"
+TEX_USER_DIR="$HOME/.texlive""$CURRENT_TEX_LIVE_VERSION"
+
+if [ ! -d $TEX_INSTALL_DIR ]; then
+    rm -rf $TEX_INSTALL_DIR
+fi
+
+if [ ! -d $TEX_USER_DIR ]; then
+    rm -rf $TEX_USER_DIR
+fi
+
+# Setup install
+DEV_DIR="$HOME/dev"
+TEX_DIR=$DEV_DIR/texlive
+TEX_INSTALL_FILES=$TEX_DIR/install
+
+if [ ! -d $DEV_DIR ]; then
+    mkdir $DEV_DIR
+fi
+
+if [ ! -d $TEX_DIR ]; then
+    mkdir $TEX_DIR
+fi
+
+if [ ! -d $TEX_INSTALL_FILES ]; then
+    mkdir $TEX_INSTALL_FILES
+fi
+
+# Get and install tex-live
+cd $TEX_INSTALL_FILES
+
+if [ -f install-tl-unx.tar.gz ]; then
+    rm install-tl-unx.tar.gz
+fi
+
+wget -q -0 http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+tar -xzvf install-tl-unx.tar.gz
+cd install-tl-unx
+install-tl -gui text
+cd $HOME
+#PATH=/usr/local/texlive/2015/bin/i386-linux:$PATH
 
 # Install rlwrap to provide libreadline features with node
 # See: http://nodejs.org/api/repl.html#repl_repl
@@ -84,13 +136,13 @@ fi
 
 git config --global user.name "Quantza"
 git config --global user.email "post2base@outlook.com"
+git clone git@github.com:Quantza/dotfiles.git
 
 echo "alias qhome='/cygdrive/c/Users/Quantza'" >> dotfiles/.bashrc_custom
 echo "alias bhome='/cygdrive/c/Users/TheBoss'" >> dotfiles/.bashrc_custom
 echo "alias apt-cyg-main='apt-cyg -m http://mirrors.kernel.org/sourceware/cygwin'" >> dotfiles/.bashrc_custom
 echo "alias apt-cyg-port='apt-cyg -m ftp://ftp.cygwinports.org/pub/cygwinports'" >> dotfiles/.bashrc_custom
 
-git clone git@github.com:Quantza/dotfiles.git
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.gitmessage.txt .
