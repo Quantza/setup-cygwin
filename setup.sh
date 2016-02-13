@@ -2,13 +2,15 @@
 # Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
 # for headless setup.
 
-#Install apt-cyg
-#https://github.com/pi0/cyg
+# Install apt-cyg
+# https://github.com/pi0/cyg
 
 GIT_REPOS_DIR="$HOME/GitRepos"
 if [ ! -d $GIT_REPOS_DIR ]; then
     mkdir $GIT_REPOS_DIR
 fi
+
+echo "Test"
 
 CYG_REPO_NAME="cyg"
 CYG_REPO_DIR="$GIT_REPOS_DIR/$CYG_REPO_NAME"
