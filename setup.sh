@@ -13,8 +13,6 @@ if [ ! -d $GIT_REPOS_DIR ]; then
     mkdir $GIT_REPOS_DIR
 fi
 
-echo $GIT_REPOS_DIR
-
 CYG_REPO_NAME="cyg"
 CYG_REPO_DIR="$GIT_REPOS_DIR/$CYG_REPO_NAME"
 if [ ! -d $CYG_REPO_DIR ]; then
