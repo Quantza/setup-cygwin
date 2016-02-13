@@ -8,7 +8,6 @@ echo "Test"
 # https://github.com/pi0/cyg
 
 GIT_REPOS_DIR="$HOME/GitRepos"
-echo "$GIT_REPOS_DIR"
 
 if [ ! -d $GIT_REPOS_DIR ]; then
     mkdir $GIT_REPOS_DIR
