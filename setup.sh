@@ -7,9 +7,9 @@ echo "Test"
 # Install apt-cyg
 # https://github.com/pi0/cyg
 
+GIT_REPOS_DIR="$HOME/GitRepos"
 echo "Test"
 
-GIT_REPOS_DIR="$HOME/GitRepos"
 if [ ! -d $GIT_REPOS_DIR ]; then
     mkdir $GIT_REPOS_DIR
 fi
