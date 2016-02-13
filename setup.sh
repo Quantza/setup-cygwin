@@ -3,8 +3,25 @@
 # for headless setup. 
 
 #Install apt-cyg
-lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-install apt-cyg /bin
+#https://github.com/pi0/cyg
+
+GIT_REPOS_DIR="$HOME/GitRepos"
+if [ ! -d $GIT_REPOS_DIR ]; then
+    mkdir $GIT_REPOS_DIR
+fi
+
+CYG_REPO_NAME="cyg"
+CYG_REPO_DIR="$GIT_REPOS_DIR/$CYG_REPO_NAME"
+if [ ! -d $CYG_REPO_DIR ]; then
+    cd $GIT_REPOS_DIR
+    git clone https://github.com/pi0/cyg.git "$($CYG_REPO_NAME)"
+    ln -s "$($CYG_REPO_DIR/apt-cyg)" /usr/local/bin/
+else
+    cd $CYG_REPO_DIR
+    git pull
+fi
+
+cd $HOME
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
