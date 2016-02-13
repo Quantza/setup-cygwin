@@ -1,6 +1,6 @@
 #!/bin/bash
 # Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
-# for headless setup. 
+# for headless setup.
 
 #Install apt-cyg
 #https://github.com/pi0/cyg
