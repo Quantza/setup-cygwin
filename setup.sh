@@ -180,4 +180,3 @@ fi
 
 chmod -vR 600 ~/.ssh/config
 chmod -R 0700 ~/dotfiles/.tools/
-
