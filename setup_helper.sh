@@ -2,7 +2,10 @@
 # Simple setup.sh for configuring Ubuntu 14.04 and derivatives,
 # for headless setup.
 
-OLDDIR="$PWD"
+isVarDefined "$OLDDIR"
+if [ $? -gt 0 ]; then
+	OLDDIR="$PWD";
+fi
 
 cd "$HOME"
 

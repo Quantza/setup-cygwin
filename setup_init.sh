@@ -1,31 +1,34 @@
 #!/bin/bash
 
-OLDDIR="$PWD"
-
-cd $HOME
-
 # Initial Tools
 
 #http://stackoverflow.com/questions/228544/how-to-tell-if-a-string-is-not-defined-in-a-bash-shell-script
 
 function isVarDefined {
-	if [ -z "${VAR+xxx}" ]; then
-		return 0;
-	else
-		return 1;
+	local result=0
+	if [ -z "${1+xxx}" ]; then
+		result=1
 	fi
+	return $result
 }
 
 function isVarEmpty {
-	if [ -z "${VAR-}" ] && [ "${VAR+xxx}" = "xxx" ]; then
-		return 1;
-	else
-		return 0;
+	local result=0
+	if [ -z "${1-}" ] && [ "${1+xxx}" = "xxx" ]; then
+		result=1
 	fi
+	return $result
 }
 
 export -f isVarDefined
 export -f isVarEmpty
+
+isVarDefined "$OLDDIR"
+if [ $? -gt 0 ]; then
+	OLDDIR="$PWD";
+fi
+
+cd "$HOME"
 
 chmod a+x "$OLDDIR"/determine_and_configure_linux_distro.sh
 source "$OLDDIR"/determine_and_configure_linux_distro.sh

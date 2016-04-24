@@ -1,9 +1,12 @@
 #!/bin/bash
 # Simple setup-dotfiles.sh for pulling and configuring dotfiles
 
-OLDDIR="$PWD"
+isVarDefined "$OLDDIR"
+if [ $? -gt 0 ]; then
+	OLDDIR="$PWD";
+fi
 
-cd $HOME
+cd "$HOME"
 
 MY_BIN_DIR="$HOME/bin"
 if [ ! -d $MY_BIN_DIR ]; then
